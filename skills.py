@@ -3,15 +3,23 @@ import sys
 import webbrowser
 import requests
 import subprocess
+import pyttsx3
+
+engine = pyttsx3.init()
+engine.setProperty('rate', 180)  # скорость речи
+
+def speaker(text):
+    engine.say(text)
+    engine.runAndWait()
 
 
 def browser():
-    webbrowser.open('https://40r.ru')
+    webbrowser.open('https://yandex.ru')
     print('браузер запущен')
 
 
 def game():
-    subprocess.Popen('C:/')
+    subprocess.Popen(r'C:\Users\Alex\AppData\Roaming\Telegram Desktop\Telegram.exe')
     print('игра')
 
 
@@ -20,7 +28,7 @@ def weather():
 
 
 def offpc():
-    #os.system('shutdown /s')
+    # os.system('shutdown /s')
     print('выключаю ПК')
 
 

@@ -4,9 +4,6 @@ import sounddevice as sd
 import vosk
 import sys
 import json
-
-from pyttsx3 import voice
-
 import words
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -33,7 +30,7 @@ def recognize(data, vectorizer, clf):
     answer = clf.predict([text_vector])[0]
 
     func_name = answer.split()[0]
-    voice.speaker(answer.replace(func_name,''))
+    speaker(answer.replace(func_name,''))
     exec(func_name+'()')
 
 
