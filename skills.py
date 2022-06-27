@@ -35,6 +35,9 @@ def offpc():
 def offbot():
     sys.exit()
 
+def show_audiodevice_list():
+    print(os.system('python - m sounddevice'))
 
 def passive():
     pass
+
