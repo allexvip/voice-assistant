@@ -53,8 +53,9 @@ def main():
             if rec.AcceptWaveform(data):
                 # print(rec.Result())
                 data = json.loads(rec.Result())['text']
-                print(data)
-                recognize(data, vectorizer, clf)
+                if data:
+                    print(data)
+                    recognize(data, vectorizer, clf)
             # else:
             #     print(rec.PartialResult())
 
