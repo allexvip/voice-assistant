@@ -44,6 +44,7 @@ def main():
 
     del words.data_set
 
+    speaker(f"Ура! Привет зови меня {' или '.join(TRIGGERS)} ")
     with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0], dtype='int16',
                            channels=1, callback=callback):
         rec = vosk.KaldiRecognizer(model, samplerate)
