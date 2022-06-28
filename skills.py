@@ -51,7 +51,11 @@ def showAudioDeviceList():
 
 def gettime():
     now = datetime.datetime.now()
-    speaker(f"В Москве {now.hour} {now.minute}")
+    hour = now.hour
+    minutes = str(now.minute)
+    if len(minutes) < 2:
+        minutes = '0' + minutes
+    speaker(f"В Москве {hour} {minutes}")
 
 
 def passive():
