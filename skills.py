@@ -59,7 +59,7 @@ def gettime():
         minutes = '0' + minutes
     speaker(f"В Москве {hour} {minutes}")
 
-def anekdot():
+def runanekdot():
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'
     }
@@ -69,9 +69,9 @@ def anekdot():
 
     soup = BeautifulSoup(r.text, 'html.parser')
 
-    anecdot = soup.find_all('div', class_="text")
+    anekdot = soup.find_all('div', class_="text")
     anekdot_list = []
-    for article in anecdot:
+    for article in anekdot:
         anekdot_list.append(article.text.strip())
 
     speaker(random.choice(anekdot_list))
