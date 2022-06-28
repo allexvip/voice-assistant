@@ -28,14 +28,14 @@ def weather():
 
 
 def offpc():
-    # os.system('shutdown /s')
+    os.system('shutdown /s')
     print('выключаю ПК')
 
 
 def offbot():
     sys.exit()
 
-def show_audiodevice_list():
+def showAudioDeviceList():
     print(os.system('python - m sounddevice'))
 
 def passive():
