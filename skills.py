@@ -72,9 +72,12 @@ def runanekdot():
     anekdot = soup.find_all('div', class_="text")
     anekdot_list = []
     for article in anekdot:
+        #print(article.text.strip())
+        # speaker(article.text.strip())
         anekdot_list.append(article.text.strip())
-
-    speaker(random.choice(anekdot_list))
+    anekdot_text = random.choice(anekdot_list)
+    print(anekdot_text)
+    speaker(anekdot_text)
 
 def passive():
     pass
