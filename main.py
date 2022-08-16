@@ -9,6 +9,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from skills import *
 
+
 q = queue.Queue()
 model = vosk.Model('model_small')
 
@@ -29,9 +30,14 @@ def recognize(data, vectorizer, clf):
     text_vector = vectorizer.transform([data]).toarray()[0]
     answer = clf.predict([text_vector])[0]
 
+    pure_text = data.replace(list(trigger_word)[0], '')
+    for item in data_set.items():
+        if answer in item[1]:
+            pure_text = pure_text.replace(item[0]+" ","")
+    print(pure_text)
     func_name = answer.split()[0]
     speaker(answer.replace(func_name,''))
-    exec(func_name+'()')
+    exec(f'{func_name}("{pure_text[1:]}")')
 
 
 
