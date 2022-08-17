@@ -9,20 +9,26 @@ from words import data_set, TRIGGERS
 import random
 from bs4 import BeautifulSoup
 import keyboard
+import sounddevice as sd
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 180)  # скорость речи
 
+in_Speak = False
+
 
 def speaker(text):
+    in_Speak = True
     engine.say(text)
     engine.runAndWait()
+    in_Speak = False
 
 
 def ican(text):
     questions = list(data_set.keys())
     questions.pop(0)
-    speaker(f"Могу ответить на следующие вопросы: {', '.join(questions)}")
+    speaker(f"Я отвечаю на следующие фразы: {', '.join(questions)}")
+
 
 def writeText(text_data):
     keyboard.write(text_data)
@@ -53,7 +59,7 @@ def offbot(text):
 
 
 def showAudioDeviceList(text):
-    print(os.system('python - m sounddevice'))
+    print(sd.query_devices())
 
 
 def gettime(text):
@@ -63,6 +69,7 @@ def gettime(text):
     if len(minutes) < 2:
         minutes = '0' + minutes
     speaker(f"В Москве {hour} {minutes}")
+
 
 def runanekdot(text):
     headers = {
@@ -76,16 +83,24 @@ def runanekdot(text):
 
     anekdot = soup.find_all('div', class_="text")
     anekdot_list = []
+    i = 0
     for article in anekdot:
-        #print(article.text.strip())
-        # speaker(article.text.strip())
-        anekdot_list.append(article.text.strip())
-    anekdot_text = random.choice(anekdot_list)
-    print(anekdot_text)
-    speaker(anekdot_text)
+        if i == 5:
+            break
+        else:
+            i = i + 1
+        anekdot_text = article.text.strip().replace(".", ",")
+        print(anekdot_text)
+        speaker(anekdot_text)
+        anekdot_list.append(anekdot_text)
+    # anekdot_text = random.choice(anekdot_list)
+    # print(anekdot_text)
+    # speaker(anekdot_text)
+
 
 def runexchange(text):
     pass
+
 
 def passive(text):
     pass

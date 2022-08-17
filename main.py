@@ -9,7 +9,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from skills import *
 
-
 q = queue.Queue()
 model = vosk.Model('model_small')
 
@@ -33,12 +32,12 @@ def recognize(data, vectorizer, clf):
     pure_text = data.replace(list(trigger_word)[0], '')
     for item in data_set.items():
         if answer in item[1]:
-            pure_text = pure_text.replace(item[0]+" ","")
-    print(pure_text)
+            pure_text = pure_text.replace(item[0] + " ", "")
+    pure_text = pure_text[1:]
+    # print(pure_text)
     func_name = answer.split()[0]
-    speaker(answer.replace(func_name,''))
-    exec(f'{func_name}("{pure_text[1:]}")')
-
+    speaker(answer.replace(func_name, ''))
+    exec(f'{func_name}("{pure_text}")')
 
 
 def main():
@@ -55,15 +54,17 @@ def main():
                            channels=1, callback=callback):
         rec = vosk.KaldiRecognizer(model, samplerate)
         while True:
-            data = q.get()
-            if rec.AcceptWaveform(data):
-                # print(rec.Result())
-                data = json.loads(rec.Result())['text']
-                if data:
-                    print(data)
-                    recognize(data, vectorizer, clf)
-            # else:
-            #     print(rec.PartialResult())
+            # if now program is not speak
+            if not in_Speak:
+                data = q.get()
+                if rec.AcceptWaveform(data):
+                    # print(rec.Result())
+                    data = json.loads(rec.Result())['text']
+                    if data:
+                        print(data)
+                        recognize(data, vectorizer, clf)
+                # else:
+                #     print(rec.PartialResult())
 
 
 if __name__ == '__main__':
